@@ -60,8 +60,6 @@ int main(void) {
 
 	glfwTerminate();
 
-    test travis
-
 	return 0;
 }
 
