@@ -31,9 +31,14 @@ add_definitions(
 	-DGLEW_STATIC
 )
 
-add_executable(LightningVault 
-	main.cpp
+file(GLOB SRC
+    "*.h"
+	"*.hpp"
+    "*.cpp"
 )
+
+add_executable(LightningVault ${SRC})
+
 target_link_libraries(LightningVault
 	${ALL_LIBS}
 )
