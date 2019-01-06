@@ -113,7 +113,7 @@ int main(void) {
             texture,
             glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-            face->glyph->advance.x
+            static_cast<GLuint>(face->glyph->advance.x)
         };
         Characters.insert(std::pair<GLchar, Character>(c, character));
     }
