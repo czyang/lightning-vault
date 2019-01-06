@@ -49,6 +49,8 @@ add_subdirectory (external)
 include_directories(
 	external/glfw-3.1.2/include/
 	external/glad/include/
+	external/freetype-2.9/include/
+	external/glm-0.9.7.1/
 	.
 )
 
@@ -56,6 +58,7 @@ set(ALL_LIBS
 	${OPENGL_LIBRARY}
 	glfw
 	GLAD
+	freetype
 )
 
 add_library(GLAD "external/glad/src/glad.c")

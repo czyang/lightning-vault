@@ -11,8 +11,14 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
-### GLFW ###
+### freetype ###
+add_subdirectory (freetype-2.9)
 
+include_directories(
+	freetype-2.9/include/
+)
+
+### GLFW ###
 add_subdirectory (glfw-3.1.2)
 
 include_directories(
