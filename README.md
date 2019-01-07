@@ -9,12 +9,14 @@ Lightning vault client side GUI program.
 Use cmake to generate project file or build the project.
 
 ##### Ubuntu
-```
+``` bash
+# GCC >= 6
+# clang >= 3.9
 sudo apt-get install xorg-dev libglu1-mesa-dev
 
 mkdir build
 cd build
 cmake ..
 
-make && make test
+make
 ```
