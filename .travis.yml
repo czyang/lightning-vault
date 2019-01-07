@@ -22,4 +22,4 @@ before_script:
   - cd build
   - cmake ..
 
-script: make && make test
+script: make
