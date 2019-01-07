@@ -2,7 +2,6 @@ if(MSVC AND NOT "${MSVC_VERSION}" LESS 1400)
 	add_definitions( "/MP" )
 endif()
 
-
 add_definitions(
 	-DTW_STATIC
 	-DTW_NO_LIB_PRAGMA
@@ -11,14 +10,8 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
-### freetype ###
-add_subdirectory (freetype-2.9)
-
-include_directories(
-	freetype-2.9/include/
-)
-
 ### GLFW ###
+
 add_subdirectory (glfw-3.1.2)
 
 include_directories(
@@ -39,6 +32,12 @@ set(OPENGL_LIBRARY
 	${GLFW_LIBRARIES}
 )
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+
+## freetype ###
+add_subdirectory (freetype-2.9)
+include_directories(
+	freetype-2.9/include/
+)
 
 ### ANTTWEAKBAR ###
 
