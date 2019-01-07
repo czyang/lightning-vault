@@ -13,6 +13,8 @@ if( CMAKE_BINARY_DIR MATCHES " " )
 	message( "Your Build Directory contains spaces. If you experience problems when compiling, this can be the cause." )
 endif()
 
+set (CMAKE_CXX_STANDARD 11)
+
 # IF(NOT CMAKE_BUILD_TYPE)
 # 	SET(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build (Debug or Release)" FORCE)
 # ENDIF(NOT CMAKE_BUILD_TYPE)
