@@ -11,7 +11,6 @@ add_definitions(
 )
 
 ### GLFW ###
-
 add_subdirectory (glfw-3.1.2)
 
 include_directories(

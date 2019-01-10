@@ -1,7 +1,14 @@
+#if _MSC_VER >= 1600  /* 1600 is Microsoft Visual Studio 2010 */
+#pragma execution_character_set("utf-8")
+#endif
+
 // Std
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
+#include <codecvt>
+#include <locale>
 // GLAD
 #include <glad/glad.h> 
 // GLFW
@@ -28,10 +35,10 @@ struct Character {
     GLuint Advance;    		// Horizontal offset to advance to next glyph
 };
 
-std::map<GLchar, Character> Characters;
+std::map<unsigned long, Character> Characters;
 GLuint VAO, VBO;
 
-void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
+void RenderText(Shader &shader, const char text[], GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
 
 int main(void) {
 	glfwInit();
@@ -67,8 +74,11 @@ int main(void) {
 		std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
 
 	FT_Face face;
-	if (FT_New_Face(ft, "fonts/arial.ttf", 0, &face))
-		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;  
+	// if (FT_New_Face(ft, "fonts/SourceHanSerifSC/SourceHanSerifSC-Regular.otf", 0, &face))
+	// 	std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;  
+
+    if (FT_New_Face(ft, "fonts/SourceHanSerifSC/SourceHanSerifSC-Regular.otf", 0, &face))
+	    std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;  
 
 	Shader textShader("shaders/text.vs", "shaders/text.fs");
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(WIDTH), 0.0f, static_cast<GLfloat>(HEIGHT));
@@ -77,17 +87,44 @@ int main(void) {
 
     FT_Set_Pixel_Sizes(face, 0, 48);
 
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-	// Load first 128 characters of ASCII set
-    for (GLubyte c = 0; c < 128; c++)
-    {
-        // Load character glyph 
-        if (FT_Load_Char(face, c, FT_LOAD_RENDER))
-        {
+    // std::string test = u8"中文";
+    // for(size_t i = 0; i < test.length();){
+    //     int cplen = 1;
+    //     if((test[i] & 0xf8) == 0xf0) cplen = 4;
+    //     else if((test[i] & 0xf0) == 0xe0) cplen = 3;
+    //     else if((test[i] & 0xe0) == 0xc0) cplen = 2;
+    //     if((i + cplen) > test.length()) cplen = 1;
+
+    //     std::cout << test.substr(i, cplen) << std::endl;
+    //     i += cplen;
+    // }
+
+    const auto str = u8"😀⚡😀闪电宝阁Lightning Vaulttest";
+    std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> cv;
+    auto str32 = cv.from_bytes(str);
+    // for(auto c : str32)
+    //     std::cout << uint_least32_t(c) << '\n';
+
+    // const char* text = u8"电";
+    // for (std::size_t n = 0; n < sizeof(text) / sizeof(const char*); n++) {
+    for(auto c : str32){
+        std::cout << uint_least32_t(c) << '\n';
+        FT_UInt  glyph_index = FT_Get_Char_Index(face, uint_least32_t(c));
+
+        if (FT_Load_Glyph(face, glyph_index, FT_LOAD_DEFAULT)) {
             std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
             continue;
         }
+        /* convert to an anti-aliased bitmap */
+        if (FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL)) {
+            std::cout << "ERROR::FREETYTPE: Failed to Render Glyph" << std::endl;
+            continue;
+        }
+
+        // if (face->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_BGRA)
+        //     std::cout << "glyph is colored";
         // Generate texture
         GLuint texture;
         glGenTextures(1, &texture);
@@ -115,7 +152,7 @@ int main(void) {
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
             static_cast<GLuint>(face->glyph->advance.x)
         };
-        Characters.insert(std::pair<GLchar, Character>(c, character));
+        Characters.insert(std::pair<unsigned long, Character>(uint_least32_t(c), character));
     }
     glBindTexture(GL_TEXTURE_2D, 0);
     // Destroy FreeType once we're finished
@@ -142,9 +179,9 @@ int main(void) {
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        RenderText(textShader, "Lightning Vault", 25.0f, 25.0f, 1.0f, glm::vec3(0.2, 0.0f, 0.8f));
-		RenderText(textShader, "Big Text", 0.0f, 250.0f, 3.0f, glm::vec3(0.2, 0.0f, 0.8f));
-        RenderText(textShader, "test", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
+        RenderText(textShader, u8"Lightning Vault", 25.0f, 25.0f, 1.0f, glm::vec3(0.2, 0.0f, 0.8f));
+		RenderText(textShader, u8"😀闪电⚡Lightning", 0.0f, 250.0f, 1.0f, glm::vec3(0.2, 0.0f, 0.8f));
+        RenderText(textShader, u8"test", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
 
         // Swap the buffers
         glfwSwapBuffers(window);
@@ -163,7 +200,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
-void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color) {
+void RenderText(Shader &shader, const char text[], GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color) {
+    std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> cv;
+    auto str32 = cv.from_bytes(text);
+
     // Activate corresponding render state	
     shader.use();
     //glUniform3f(glGetUniformLocation(shader.Program, "textColor"), color.x, color.y, color.z);
@@ -173,10 +213,11 @@ void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat 
     glBindVertexArray(VAO);
 
     // Iterate through all characters
-    std::string::const_iterator c;
-    for (c = text.begin(); c != text.end(); c++) 
-    {
-        Character ch = Characters[*c];
+    //std::wstring::const_iterator c;
+    //for (int i = 0; i < sizeof(text) / sizeof(const char*); ++i) {
+
+    for(auto c : str32) {
+        Character ch = Characters[uint_least32_t(c)];
 
         GLfloat xpos = x + ch.Bearing.x * scale;
         GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * scale;

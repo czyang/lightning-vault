@@ -89,18 +89,19 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
-file(GLOB SRC
-    "*.h"
-	"*.hpp"
-    "*.cpp"
-)
+# file(GLOB SRC
+#     "*.h"
+# 	"*.hpp"
+#     "*.cpp"
+# )
 
-add_executable(lightning_vault ${SRC})	
+# add_executable(lightning_vault ${SRC})
+
+add_executable(lightning_vault 
+	main.cpp
+	shader.hpp
+)
 
 target_link_libraries(lightning_vault
 	${ALL_LIBS}
 )
-
-# set(CPACK_PROJECT_NAME ${NAME})
-# set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-# include(CPack)
