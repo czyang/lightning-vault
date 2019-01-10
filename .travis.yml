@@ -10,9 +10,9 @@ addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-3.5 # not sure why we needed this
+    - llvm-toolchain-precise-6.0 # It's depend apt-get source
     packages:
-      - clang
+      - clang-6.0
 
 before_script:
   - mkdir build
