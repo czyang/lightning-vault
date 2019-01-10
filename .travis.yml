@@ -6,13 +6,16 @@ compiler:
 before_install:
   - sudo apt-get install xorg-dev libglu1-mesa-dev
 
+install:
+  - sudo apt-get -qq install clang-6.0
+
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     - llvm-toolchain-precise-3.5 # not sure why we needed this
     packages:
-      - clang-5.0
+      - clang-6.0
 
 before_script:
   - mkdir build
