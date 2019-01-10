@@ -41,3 +41,5 @@ Not setup yet.
 CMake files and project structure: http://www.opengl-tutorial.org/
 
 OpenGL API and relative graphics API: https://learnopengl.com/
+
+Test Font Source Han Serif: https://github.com/adobe-fonts/source-han-serif/tree/release
