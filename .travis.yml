@@ -15,10 +15,11 @@ matrix:
           - clang-6.0
           - libstdc++6
     env:
-      - MATRIX_EVAL="CC=clang-6.0 && CXX=clang-6.0"
+      - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
       - LINKER_FLAGS="-stdlib=libc++"
 
 before_install:
+  - sudo apt-get install xorg-dev libglu1-mesa-dev
   - eval "${MATRIX_EVAL}"
   
 before_script:
