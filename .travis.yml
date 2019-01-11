@@ -1,12 +1,12 @@
 language: cpp
+compiler: gcc
 
 os: linux
-dist: trusty
 
 matrix:
+  fast_finish: true
   include:
     - os: linux
-      compiler: gcc
       addons:
         apt:
           sources:
@@ -43,6 +43,4 @@ before_script:
   # - CXX=/usr/bin/clang++-6.0 CC=/usr/bin/clang-6.0 cmake ..
 
 script: 
-  - clang++ --version
-  - gcc --version
   - make
