@@ -12,10 +12,10 @@ Use cmake to generate project file or build the project.
 
 Requirement: 
 
-clang version >= 6.0, cmake >= 3.0
+clang version >= 6.0 or gcc >= 4.8 and cmake >= 3.0
 
 ``` bash
-# clang >= 6.0
+# clang >= 6.0 or gcc >= 4.8
 sudo apt-get install xorg-dev libglu1-mesa-dev
 
 mkdir build

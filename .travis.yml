@@ -14,33 +14,21 @@ matrix:
           packages:
             - g++-7
       env:
-        - MATRIX_EVAL="CC=g++-7 && CXX=g++-7"
+        - MATRIX_EVAL="CC=clang++-6.0 && CXX=clang++-6.0"
+        # - MATRIX_EVAL="CC=g++-7 && CXX=g++-7"
         - LINKER_FLAGS="-stdlib=libc++"
 
-  # - os: linux
-  #   addons:
-  #     apt:
-  #       sources:
-  #       - ubuntu-toolchain-r-test
-  #       - llvm-toolchain-trusty-6.0 # It's depend apt-get source
-  #       - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
-  #         key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
-  #       packages:
-  #         - clang-6.0
-  #         - libstdc++6
-  #   env:
-  #     - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
-  #     - LINKER_FLAGS="-stdlib=libc++"
-
-
 before_install:
+  - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+  - sudo apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main"
+  - sudo apt-get update
+  - sudo apt-get install -y clang-6.0
   - sudo apt-get install xorg-dev libglu1-mesa-dev
   - eval "${MATRIX_EVAL}"
   
 before_script:
   - mkdir build
   - cd build
-  # - CXX=/usr/bin/clang++-6.0 CC=/usr/bin/clang-6.0 cmake ..
 
 script: 
   - make
