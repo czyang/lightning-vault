@@ -89,26 +89,10 @@ int main(void) {
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-    // std::string test = u8"中文";
-    // for(size_t i = 0; i < test.length();){
-    //     int cplen = 1;
-    //     if((test[i] & 0xf8) == 0xf0) cplen = 4;
-    //     else if((test[i] & 0xf0) == 0xe0) cplen = 3;
-    //     else if((test[i] & 0xe0) == 0xc0) cplen = 2;
-    //     if((i + cplen) > test.length()) cplen = 1;
-
-    //     std::cout << test.substr(i, cplen) << std::endl;
-    //     i += cplen;
-    // }
-
-    const auto str = u8"😀⚡😀闪电宝阁Lightning Vaulttest";
+    const auto str = u8"😀⚡😀闪电Lightning Vaulttest";
     std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> cv;
     auto str32 = cv.from_bytes(str);
-    // for(auto c : str32)
-    //     std::cout << uint_least32_t(c) << '\n';
 
-    // const char* text = u8"电";
-    // for (std::size_t n = 0; n < sizeof(text) / sizeof(const char*); n++) {
     for(auto c : str32){
         std::cout << uint_least32_t(c) << '\n';
         FT_UInt  glyph_index = FT_Get_Char_Index(face, uint_least32_t(c));
