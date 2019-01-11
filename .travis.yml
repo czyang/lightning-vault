@@ -1,5 +1,4 @@
 language: cpp
-dist: trusty
 
 compiler:
   - gcc
@@ -17,7 +16,7 @@ matrix:
     env:
       - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
       - LINKER_FLAGS="-stdlib=libc++"
-      
+
   # - os: linux
   #   addons:
   #     apt:
@@ -41,7 +40,7 @@ before_install:
 before_script:
   - mkdir build
   - cd build
-  - CXX=/usr/bin/clang++-6.0 CC=/usr/bin/clang-6.0 cmake ..
+  # - CXX=/usr/bin/clang++-6.0 CC=/usr/bin/clang-6.0 cmake ..
 
 script: 
   - clang++ --version
