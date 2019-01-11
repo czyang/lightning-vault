@@ -1,21 +1,21 @@
 language: cpp
 
-compiler:
-  - gcc
-  # - clang
+os: linux
+dist: trusty
 
 matrix:
   include:
-  - os: linux
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - g++-7
-    env:
-      - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-      - LINKER_FLAGS="-stdlib=libc++"
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=g++-7 && CXX=g++-7"
+        - LINKER_FLAGS="-stdlib=libc++"
 
   # - os: linux
   #   addons:
