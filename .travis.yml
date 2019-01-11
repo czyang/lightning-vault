@@ -28,6 +28,8 @@ before_install:
 before_script:
   - mkdir build
   - cd build
-  - cmake ..
+  - CXX=/usr/bin/clang++-6.0 CC=/usr/bin/clang-6.0 cmake ..
 
-script: make
+script: 
+  - clang++ --version
+  - make
