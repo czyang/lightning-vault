@@ -77,7 +77,7 @@ int main(void) {
 	// if (FT_New_Face(ft, "fonts/SourceHanSerifSC/SourceHanSerifSC-Regular.otf", 0, &face))
 	// 	std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;  
 
-    if (FT_New_Face(ft, "fonts/SourceHanSerifSC/SourceHanSerifSC-Regular.otf", 0, &face))
+    if (FT_New_Face(ft, "./fonts/SourceHanSerifSC/SourceHanSerifSC-Regular.otf", 0, &face))
 	    std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;  
 
 	Shader textShader("shaders/text.vs", "shaders/text.fs");
