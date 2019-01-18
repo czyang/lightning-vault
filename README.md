@@ -32,7 +32,14 @@ Requirement:
 Visual Studio Community 2017. cmake >= 3.0
 
 ### Mac
-Not setup yet.
+``` bash
+# clang >= 6.0 or gcc >= 4.8
+mkdir build
+cd build
+cmake ..
+
+make
+```
 
 
 ## Reference
