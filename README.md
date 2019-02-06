@@ -1,8 +1,7 @@
 # ⚡ Lightning Vault 
 <!-- [![Build Status](https://travis-ci.org/czyang/lightning-vault.svg?branch=master)](https://travis-ci.org/czyang/lightning-vault) -->
 
-Lightning vault client side GUI program. 
-
+An experimental lightning fast non-traditional web browser. 
 
 ## Build Instructions
 
