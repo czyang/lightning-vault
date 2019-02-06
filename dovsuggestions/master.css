@@ -1,0 +1,17 @@
+default {
+    font: "Arial", "sans-serif", 12;
+}
+
+big : default {
+    width: 800;
+    height: 400;
+    font-size: 24;
+    font-weight: bold;
+}
+
+
+small : default {
+    font-size: 8;
+}
+
+
