@@ -9,12 +9,24 @@ Use cmake to generate project file or build the project.
 
 ### Ubuntu
 
-Requirement: 
+#### Requirement: 
 
-clang version >= 6.0 or gcc >= 4.8 and cmake >= 3.0
+* Ubuntu 18.04 (The current use freetype code have bug on erly version of Ubuntu)
+* clang version >= 6.0 gcc >= 4.8
+* cmake >= 3.0
 
+**You need specific your C++ Compiler**
 ``` bash
-# clang >= 6.0 or gcc >= 4.8
+# Use Clang Compile:
+export CC=/path/to/clang
+export CXX=/path/to/clang++
+
+# Use GCC Compile:
+export CC=/path/to/gcc
+export CXX=/path/to/g++
+```
+**Build and Compile**
+``` bash
 sudo apt-get install xorg-dev libglu1-mesa-dev
 
 mkdir build

@@ -5,7 +5,7 @@ Achieve an experimental non-traditional web browser, which have good maintainbil
 
 ## Features
 * Display basic HTML element
-* Subset of CSS
+* Subset of CSS.
 * Ability to deal with the special comprised Web data structure (Maybe this part can split to a new lib project)
 * Data binding
 
